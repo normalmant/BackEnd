@@ -5,7 +5,7 @@ const valores=    [  25.00,   5.00,    3.50,     1.25,  60.99,       2.99,      
 function mostrarEstoque(){
    console.log("\n ESTOQUE: ")
 let contador=0
-   while(contador<=9){
+   while(contador<produtos.lenght){
       console.log(produtos[contador]," " + "R$", valores[contador], "\n")
       contador++
    }
