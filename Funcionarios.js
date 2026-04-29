@@ -4,18 +4,22 @@ const funcionariosArquivo = require("./funcionarios.json")
 
 const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
 
-
+function salvar(){
+        const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
+    fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+}
 
 function mostrarFuncionarios(){
+    console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ MOSTRA FUNCIONÁRIOS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n") 
+
     funcionariosArquivo.forEach((trabalhador)=>{
     console.log( trabalhador.nome+ " idade: "+ trabalhador.idade+ " anos   Cargo: "+ trabalhador.cargo+ "   Salário: R$"+trabalhador.pagamento)
-    
 })
 }
 
 
 function adicionarFuncionario(nome, idade,cargo, pagamento, contrato, escala){
-console.log("\n"+" @@@@@@@@@@@@@@@@@@@@@@ ADICIONA FUNCIONÁRIO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "+ "\n")
+    console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ ADICIONAR FUNCIONÁRIO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")   
 
     const existe = funcionariosArquivo.some(
    trabalhador => trabalhador.nome ===nome
@@ -27,6 +31,7 @@ console.log("\n"+" @@@@@@@@@@@@@@@@@@@@@@ ADICIONA FUNCIONÁRIO @@@@@@@@@@@@@@@@
 }
 
     else{
+        console.log("O FUNCIONÁRIO: " + nome+ " idade: "+ idade+ " anos   Cargo: "+ cargo+ "   Salário: R$"+pagamento +" FOI CADASTRADO" +"\n")
     funcionariosArquivo.push({
     nome: nome,
     idade: idade,
@@ -37,8 +42,7 @@ console.log("\n"+" @@@@@@@@@@@@@@@@@@@@@@ ADICIONA FUNCIONÁRIO @@@@@@@@@@@@@@@@
 }
 )}
 //RESPONSÁVEL POR ADICIONAR NO funcionarios.json
-    const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
-    fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+    salvar();
 }
 
 
@@ -66,8 +70,7 @@ console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ REMOVER FUNCIONARIO @@@@@@@@@@@@@@@@@@@
         console.log("NENHUM FUNCIONÁRIO FOI RETIRADO")
     }
 
- const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
- fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+    salvar();
 
 }
 
@@ -99,8 +102,8 @@ function filtroPagamento(operador,filtro){
 
 
 function Desconto(nome, valorDesconto){
+ console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ DESCONTO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")   
 
-    console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ DESCONTO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")    
    const desconto = funcionariosArquivo.findIndex(
     trabalhador=> trabalhador.nome === nome
    )
@@ -110,25 +113,29 @@ function Desconto(nome, valorDesconto){
 
     console.log("Foi descontado "+valorDesconto+"% do sálario do "+nome+"\n"+"Sálario atual: R$ " +descontado)
 funcionariosArquivo[desconto].pagamento= descontado
-    const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
-    fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+    salvar();
 }
 
 
 
 
 
-
+mostrarFuncionarios();
 
 
                       //Nome || Idade || Cargo || Pagamento || Contrato ||Escala
-//adicionarFuncionario("Romário", 56, "Motorista",5000,      "7 ano",   "6/1");
+adicionarFuncionario("Romário", 56, "Motorista",5000,      "7 ano",   "6/1");
 
 mostrarFuncionarios();
 
        //Maior > ou menor < || Número
 filtroPagamento( ">"  ,10000);
 
-removerFuncionario("Romário");
+removerFuncionario("Miguel");
+
+mostrarFuncionarios();
+
         //Nome || Porcentagem
-Desconto("Fernando",0)
+Desconto("Fernando",20)
+
+mostrarFuncionarios();
