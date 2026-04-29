@@ -1,34 +1,101 @@
-const produtos=["Macarrão","Arroz","Feijão", "Maçã","Doritos", "Pasta de dente", "Leite", "Bolacha", "Biscoito", "Chocolate"]
-const valores=    [  25.00,   5.00,    3.50,     1.25,  60.99,       2.99,         5.80,     0.99,         1.99,       8.99]
-//const estoques=[     50,     25,     33,         87,     32,         24,             55,     27,         38,         67 ]
+const funcionario =[
+    {
+    nome: "Roberto",
+    idade: 18,
+    cargo: "faxineiro",
+    pagamento: 1500,
+    contrato: "2 anos",
+    escala: "6/1",
 
-function mostrarEstoque(){
-   console.log("\n ESTOQUE: ")
-let contador=0
-   while(contador<produtos.length){
-      console.log(produtos[contador]," " + "R$", valores[contador], "\n")
-      contador++
-   }
-   } 
+},
+{
+    nome: "Miguel",
+    idade: 18,
+    cargo: "Gerente",
+    pagamento: 15000,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Helena",
+    idade: 28,
+    cargo: "Marketing",
+    pagamento: 1000,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Gael",
+    idade: 38,
+    cargo: "Desenvolvedor",
+    pagamento: 5000,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Davi",
+    idade: 19,
+    cargo: "secretário",
+    pagamento: 1200,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Mavi",
+    idade: 48,
+    cargo: "faxineiro",
+    pagamento: 2000,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Cecilia",
+    idade: 88,
+    cargo: "Desenvolvedor",
+    pagamento: 1500,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Fernando",
+    idade: 58,
+    cargo: "CEO",
+    pagamento: 10000,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Bruna",
+    idade: 78,
+    cargo: "Conzinheira",
+    pagamento: 2500,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+{
+    nome: "Jonas",
+    idade: 10,
+    cargo: "Massagista",
+    pagamento: 2,
+    contrato: "2 anos",
+    escala: "6/1",
+
+},
+
+]
+const funcionariosJSON = JSON.stringify(funcionario)
+
+
+ const fs = require("fs")
+ fs.writeFileSync("funcionarios.json", funcionariosJSON)
+
+
  
-
-function item_novo(produto, valor){
-  console.log("\nADICIONAR NOVO ITEM: ")
-  produtos.push(produto)
-  valores.push(valor)
-
-  
-}
-
-
-function tirar_item(indice){
-   console.log("\nRETIRAMOS UM ITEM: ")
-   produtos.splice(indice,1)
-   valores.splice(indice,1)
-
- }
-mostrarEstoque();
-item_novo("Refrigerante",2.50);
-mostrarEstoque();
-tirar_item(0);
-mostrarEstoque();

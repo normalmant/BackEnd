@@ -1,0 +1,134 @@
+const fs = require("fs")
+
+const funcionariosArquivo = require("./funcionarios.json")
+
+const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
+
+
+
+function mostrarFuncionarios(){
+    funcionariosArquivo.forEach((trabalhador)=>{
+    console.log( trabalhador.nome+ " idade: "+ trabalhador.idade+ " anos   Cargo: "+ trabalhador.cargo+ "   Salário: R$"+trabalhador.pagamento)
+    
+})
+}
+
+
+function adicionarFuncionario(nome, idade,cargo, pagamento, contrato, escala){
+console.log("\n"+" @@@@@@@@@@@@@@@@@@@@@@ ADICIONA FUNCIONÁRIO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "+ "\n")
+
+    const existe = funcionariosArquivo.some(
+   trabalhador => trabalhador.nome ===nome
+)
+    if(existe===true){
+    
+    console.log("O USUÁRIO JÁ ESTÁ CADASTRADO: " + nome+ " idade: "+ idade+ " anos   Cargo: "+ cargo+ "   Salário: R$"+pagamento + "\n")
+
+}
+
+    else{
+    funcionariosArquivo.push({
+    nome: nome,
+    idade: idade,
+    cargo: cargo,
+    pagamento: pagamento,
+    contrato: contrato,
+    escala: escala,
+}
+)}
+//RESPONSÁVEL POR ADICIONAR NO funcionarios.json
+    const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
+    fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+}
+
+
+
+function removerFuncionario(nome){
+console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ REMOVER FUNCIONARIO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")
+
+//O .some PASSA POR TODOS OS OBJETOS
+ const existe = funcionariosArquivo.some(
+    trabalhador => trabalhador.nome === nome
+)
+//O .findIndex ANALISÁ EM QUAL POSIÇÃO ESTÁ O NOME
+ const posicao= funcionariosArquivo.findIndex(
+    trabalhador=> trabalhador.nome === nome
+)
+
+    if(existe===true){
+       console.log("O FUNCIONÁRIO "+nome+ " FOI RETIRADO: " )
+
+       //VAI ATÉ A POSIÇÃO DO NOME E RETIRA
+     funcionariosArquivo.splice(posicao,1)
+
+}
+        else{
+        console.log("NENHUM FUNCIONÁRIO FOI RETIRADO")
+    }
+
+ const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
+ fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+
+}
+
+
+
+function filtroPagamento(operador,filtro){
+    console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ FILTRO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")
+    if(operador==="<" ){
+ const resultado = funcionariosArquivo.filter(
+    trabalhador => trabalhador.pagamento<=filtro
+)
+    resultado.forEach((trabalhador)=>{
+    console.log(trabalhador.nome+ 
+        " idade: "+ trabalhador.idade+ 
+        " anos   Cargo: "+ trabalhador.cargo+ 
+      "   Salário: R$"+trabalhador.pagamento)})}
+
+        else if(operador===">"){
+        const resultado = funcionariosArquivo.filter(
+        trabalhador => trabalhador.pagamento>=filtro
+)
+        resultado.forEach((trabalhador)=>{
+    console.log(trabalhador.nome+ 
+        " idade: "+ trabalhador.idade+ 
+        " anos   Cargo: "+ trabalhador.cargo+ 
+      "   Salário: R$"+trabalhador.pagamento)})}  
+}
+
+
+
+function Desconto(nome, valorDesconto){
+
+    console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ DESCONTO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")    
+   const desconto = funcionariosArquivo.findIndex(
+    trabalhador=> trabalhador.nome === nome
+   )
+   let Porcentagem = funcionariosArquivo[desconto].pagamento*valorDesconto/100
+   let descontado = funcionariosArquivo[desconto].pagamento-Porcentagem
+   
+
+    console.log("Foi descontado "+valorDesconto+"% do sálario do "+nome+"\n"+"Sálario atual: R$ " +descontado)
+funcionariosArquivo[desconto].pagamento= descontado
+    const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
+    fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
+}
+
+
+
+
+
+
+
+
+                      //Nome || Idade || Cargo || Pagamento || Contrato ||Escala
+//adicionarFuncionario("Romário", 56, "Motorista",5000,      "7 ano",   "6/1");
+
+mostrarFuncionarios();
+
+       //Maior > ou menor < || Número
+filtroPagamento( ">"  ,10000);
+
+removerFuncionario("Romário");
+        //Nome || Porcentagem
+Desconto("Fernando",0)
