@@ -95,7 +95,7 @@ function filtroPagamento(operador,filtro){
         trabalhador => trabalhador.pagamento>=filtro
 )
         resultado.forEach((trabalhador)=>{
-    console.log(trabalhador.nome+ 
+        console.log(trabalhador.nome+ 
         " idade: "+ trabalhador.idade+ 
         " anos   Cargo: "+ trabalhador.cargo+ 
       "   Salário: R$"+trabalhador.pagamento)})}  
@@ -103,17 +103,19 @@ function filtroPagamento(operador,filtro){
 
 
 
-function Desconto(nome, valorDesconto){
+function Desconto(nome, valorDesconto, trabalhador){
+
  console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ DESCONTO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")   
 
    const desconto = funcionariosArquivo.findIndex(
     trabalhador=> trabalhador.nome === nome
    )
+   const salario= funcionariosArquivo[desconto].pagamento
    let Porcentagem = funcionariosArquivo[desconto].pagamento*valorDesconto/100
    let descontado = funcionariosArquivo[desconto].pagamento-Porcentagem
    
 
-    console.log("Foi descontado "+valorDesconto+"% do sálario do "+nome+"\n"+"Sálario atual: R$ " +descontado)
+    console.log("Foi descontado "+valorDesconto+"% do sálario da(o) "+nome+ " Sálario: "+salario+"\n"+"Sálario atual: R$ " +descontado)
     funcionariosArquivo[desconto].pagamento= descontado
     salvar();
 }
@@ -126,18 +128,18 @@ mostrarFuncionarios();
 
 
                       //Nome || Idade || Cargo || Pagamento || Contrato ||Escala
-adicionarFuncionario("Romário", 56, "Motorista",5000,   "7 ano",   "6/1");
+adicionarFuncionario("John", 21, "Estágiario",1500,   "1 ano",   "4/3");
 
 mostrarFuncionarios();
 
        //Maior > ou menor < || Número
 filtroPagamento( ">"  ,5000);
 
-removerFuncionario("RUFFLES");
+removerFuncionario("Jonas");
 
 mostrarFuncionarios();
 
         //Nome || Porcentagem
-Desconto("Fernando",20)
+Desconto("Helena",20)
 
 mostrarFuncionarios();
