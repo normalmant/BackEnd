@@ -5,6 +5,7 @@ const funcionariosArquivo = require("./funcionarios.json")
 const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
 
 function salvar(){
+    //Responsável por salver as mudanças no JSON
         const funcionariosArquivoJSON = JSON.stringify(funcionariosArquivo)
     fs.writeFileSync("funcionarios.json",funcionariosArquivoJSON) 
 }
@@ -79,6 +80,7 @@ console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ REMOVER FUNCIONARIO @@@@@@@@@@@@@@@@@@@
 function filtroPagamento(operador,filtro){
     console.log("\n"+"@@@@@@@@@@@@@@@@@@@@@@ FILTRO @@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+"\n")
     if(operador==="<" ){
+        //Filtrar
  const resultado = funcionariosArquivo.filter(
     trabalhador => trabalhador.pagamento<=filtro
 )
@@ -112,7 +114,7 @@ function Desconto(nome, valorDesconto){
    
 
     console.log("Foi descontado "+valorDesconto+"% do sálario do "+nome+"\n"+"Sálario atual: R$ " +descontado)
-funcionariosArquivo[desconto].pagamento= descontado
+    funcionariosArquivo[desconto].pagamento= descontado
     salvar();
 }
 
@@ -124,14 +126,14 @@ mostrarFuncionarios();
 
 
                       //Nome || Idade || Cargo || Pagamento || Contrato ||Escala
-adicionarFuncionario("Romário", 56, "Motorista",5000,      "7 ano",   "6/1");
+adicionarFuncionario("Romário", 56, "Motorista",5000,   "7 ano",   "6/1");
 
 mostrarFuncionarios();
 
        //Maior > ou menor < || Número
-filtroPagamento( ">"  ,10000);
+filtroPagamento( ">"  ,5000);
 
-removerFuncionario("Miguel");
+removerFuncionario("RUFFLES");
 
 mostrarFuncionarios();
 

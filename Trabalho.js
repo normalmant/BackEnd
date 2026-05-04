@@ -96,6 +96,3 @@ const funcionariosJSON = JSON.stringify(funcionario)
 
  const fs = require("fs")
  fs.writeFileSync("funcionarios.json", funcionariosJSON)
-
-
- 
